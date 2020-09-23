@@ -1,6 +1,8 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -16,6 +18,28 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
+
+// 是否移除console信息
+const isDropConsole = false
+
+// 打包后是否进行分析
+const isAnalyze = false
+
+// 是否生成sourcemap
+const hasSourcemap = false
+
+// 是否处于生产环境
+const isProduct = process.env.NODE_ENV === 'production'
+
+// 公共插件
+const commonPlugins = []
+
+if (isAnalyze) {
+  if (isProduct) {
+    commonPlugins.push(new BundleAnalyzerPlugin())
+  }
+}
+
 module.exports = {
   /**
    * You will need to set publicPath if you plan to deploy your site under a sub path,
@@ -28,27 +52,44 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
-  productionSourceMap: false,
+  productionSourceMap: hasSourcemap,
+  css: {
+    sourceMap: true,
+    loaderOptions: {
+      sass: {
+        prependData: `@import "@/styles/global.scss";`,
+        sourceMap: true
+      },
+      css: {
+        sourceMap: true
+      }
+    }
+  },
   devServer: {
-    port: port,
+    port,
     open: true,
     overlay: {
-      warnings: false,
+      warnings: true,
       errors: true
     },
     before: require('./mock/mock-server.js')
   },
-  configureWebpack: {
-    // provide the app's title in webpack's name field, so that
-    // it can be accessed in index.html to inject the correct title.
-    name: name,
-    resolve: {
-      alias: {
-        '@': resolve('src')
+  configureWebpack: config => {
+    if (isProduct) {
+      isDropConsole &&
+        (config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true)
+    }
+    return {
+      plugins: commonPlugins,
+      name,
+      resolve: {
+        alias: {
+          '@': resolve('src')
+        }
       }
     }
   },
-  chainWebpack(config) {
+  chainWebpack: config => {
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
       {

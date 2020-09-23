@@ -1,0 +1,20 @@
+.hander {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.w100p {
+  width: 100%;
+}
+
+.h100p {
+  height: 100%;
+}
+
+.clearfix {
+  &::after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+}

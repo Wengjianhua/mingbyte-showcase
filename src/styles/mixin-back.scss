@@ -1,0 +1,164 @@
+// 背景图片地址和大小
+@mixin bis($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin borderRadius($radius) {
+  border-radius: $radius;
+}
+
+//定位全屏
+@mixin allcover {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+//定位上下左右居中
+@mixin center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// margin居中
+@mixin marginAuto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+//定位上下居中
+@mixin ct {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+//定位左右居中
+@mixin cl {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+//纵向滚动条
+@mixin scrollY() {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+//单行垂直居中
+@mixin verticalCenter($height) {
+  height: $height;
+  line-height: $height;
+}
+
+//字体大小、行高、字体
+@mixin font($size, $line-height, $family: 'Microsoft YaHei') {
+  font: #{$size}/#{$line-height} $family;
+}
+
+// flex水平方向布局，垂直居中
+@mixin fvc() {
+  display: flex;
+  align-items: center;
+}
+
+//flex 布局和 子元素 对其方式
+@mixin fj($type: space-between) {
+  display: flex;
+  justify-content: $type;
+}
+
+@mixin fdja($direction: column, $type: space-between, $align: flex-start) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $type;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//定位到底部
+@mixin fixedToBottom($bottom: 0) {
+  position: fixed;
+  right: 0;
+  bottom: $bottom;
+  left: 0;
+}
+
+//右边弹窗页面里面的说明框
+@mixin page-describe-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 28px;
+  background-color: rgb(69, 146, 250, 0.05);
+}
+
+// 画三角形
+@mixin triangle($size, $color, $direction) {
+  width: 0;
+  height: 0;
+
+  //三角向上、向下、向右和向左时，设置边框样式
+  @if ($direction==up) or
+    ($direction==down) or
+    ($direction==right) or
+    ($direction==left)
+  {
+    border-color: transparent;
+    border-style: solid;
+    border-width: $size / 2;
+
+    //三角向上时，底部边框颜色为$color
+    @if $direction==up {
+      border-bottom-color: $color;
+      //三角向右时，左边边框颜色为$color
+    } @else if $direction==right {
+      border-left-color: $color;
+      //三你向下时，顶部边框颜色为$color
+    } @else if $direction==down {
+      border-top-color: $color;
+      //三角向左时，右边框颜色为$color
+    } @else if $direction==left {
+      border-right-color: $color;
+    }
+  }
+
+  //当三角为左上、右上直角三角形时
+  @else if ($direction==up-right) or ($direction==up-left) {
+    border-top: $size solid $color;
+
+    //顶边边框样式
+    //当三角为右上直角三角形时，设置左边边框为透明
+    @if $direction==up-right {
+      border-left: $size solid transparent;
+      //当三角为左上直角三角形时，设置右边边框为透明
+    } @else if $direction==up-left {
+      border-right: $size solid transparent;
+    }
+  }
+
+  //当三角为右下、左下直角三角形时
+  @else if ($direction==down-right) or ($direction==down-left) {
+    border-bottom: $size solid $color;
+
+    //底边边框样式
+    //当三角为右下直角三角形时，设置左边边框为透明
+    @if $direction==down-right {
+      border-left: $size solid transparent;
+      //当三你为左下直角三角形时，设置右边边框为透明
+    } @else if $direction==down-left {
+      border-right: $size solid transparent;
+    }
+  }
+}
