@@ -3,6 +3,7 @@ const path = require('path')
 const defaultSettings = require('./src/settings.js')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -32,7 +33,12 @@ const hasSourcemap = false
 const isProduct = process.env.NODE_ENV === 'production'
 
 // 公共插件
-const commonPlugins = []
+const commonPlugins = [
+  new StyleLintPlugin({
+    files: ['src/**/*.{html,vue,css,sass,scss,less}'],
+    fix: true
+  })
+]
 
 if (isAnalyze) {
   if (isProduct) {
