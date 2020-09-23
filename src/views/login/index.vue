@@ -114,8 +114,8 @@ export default {
     }
   },
   mounted() {
-    // let test = 123
-    // console.log(test)
+    const test = 123
+    console.log(test)
   },
   methods: {
     showPwd() {
