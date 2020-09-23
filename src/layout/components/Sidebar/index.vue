@@ -8,10 +8,10 @@
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
+        :background-color="variables.menu_bg"
+        :text-color="variables.menu_text"
         :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
+        :active-text-color="variables.menu_active_text"
         :collapse-transition="false"
         mode="vertical"
       >

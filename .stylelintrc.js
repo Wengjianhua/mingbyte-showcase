@@ -33,15 +33,14 @@ module.exports = {
       true,
       {
         ignoreProperties: [
-          'theme',
-          'menutext',
-          'menuactivetext',
-          'submenuactivetext',
-          'menubg',
-          'menuhover',
-          'submenubg',
-          'submenuhover',
-          'sidebarwidth'
+          'menu_text',
+          'menu_active_text',
+          'sub_menu_active_text',
+          'menu_bg',
+          'menu_hover',
+          'sub_menu_bg',
+          'sub_menu_hover',
+          'side_bar_width'
         ]
       }
     ]

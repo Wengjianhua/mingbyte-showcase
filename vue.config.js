@@ -81,6 +81,7 @@ module.exports = {
     before: require('./mock/mock-server.js')
   },
   configureWebpack: config => {
+    config.devtool = 'source-map'
     if (isProduct) {
       isDropConsole &&
         (config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true)
