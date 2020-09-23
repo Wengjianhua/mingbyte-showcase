@@ -113,6 +113,10 @@ export default {
       immediate: true
     }
   },
+  mounted() {
+    // let test = 123
+    // console.log(test)
+  },
   methods: {
     showPwd() {
       if (this.passwordType === 'password') {
